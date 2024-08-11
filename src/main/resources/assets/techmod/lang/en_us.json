@@ -1,0 +1,6 @@
+{
+	"itemGroup.techmod": "Tech Mod",
+	"item.techmod.example_item": "Example Item",
+	"block.techmod.example_block": "Example Block",
+	"jade.techmod.block.example_block": "tooltip here"
+}
