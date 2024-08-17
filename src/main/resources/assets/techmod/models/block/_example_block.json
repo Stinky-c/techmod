@@ -1,0 +1,5 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "minecraft:block/trial_spawner_side_active"
+  }}
