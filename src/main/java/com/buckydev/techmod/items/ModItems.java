@@ -1,18 +1,14 @@
 package com.buckydev.techmod.items;
 
-import com.buckydev.techmod.ModCreativeModeTab;
 import com.buckydev.techmod.TechMod;
 import java.util.function.Supplier;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tiers;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -43,17 +39,6 @@ public class ModItems {
 
     public static final DeferredItem<Item> EXAMPLE_ITEM = registerSimpleItem("example_item", new Item.Properties());
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB =
-            ModCreativeModeTab.CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup." + TechMod.MODID))
-                    .withTabsBefore(CreativeModeTabs.COMBAT)
-                    .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
-                    .displayItems((parameters, output) -> {
-                        output.accept(EXAMPLE_ITEM.get());
-                        output.accept(EXAMPLE_FOOD);
-                    })
-                    .build());
-
     private static DeferredItem<Item> registerSimpleItem(String name, Item.Properties itemProperties) {
         return ITEMS.registerSimpleItem(name, itemProperties);
     }
@@ -61,6 +46,8 @@ public class ModItems {
     private static <T extends Item> DeferredItem<T> registerItem(String name, Supplier<T> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
     }
+
+    public static void addToExistingTabs(BuildCreativeModeTabContentsEvent event) {}
 
     public static void submitEventBus(IEventBus eventBus) {
         ITEMS.register(eventBus);

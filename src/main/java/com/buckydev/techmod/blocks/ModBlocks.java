@@ -17,9 +17,8 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = registerBlock(
             "example_block",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)
-                    .instabreak()
-                    .requiresCorrectToolForDrops()));
+            () -> new Block(
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops()));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> blockSupplier) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, blockSupplier);

@@ -1,6 +1,7 @@
 package com.buckydev.techmod;
 
 import com.buckydev.techmod.blocks.ModBlocks;
+import com.buckydev.techmod.creativeTabs.ModCreativeTab;
 import com.buckydev.techmod.items.ModItems;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -36,7 +37,7 @@ public class TechMod {
 
         ModBlocks.submitEventBus(modEventBus);
         ModItems.submitEventBus(modEventBus);
-        ModCreativeModeTab.sumbitEventBus(modEventBus);
+        ModCreativeTab.CREATIVE_TAB.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 
