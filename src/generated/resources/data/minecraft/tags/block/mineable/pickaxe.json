@@ -1,6 +1,7 @@
 {
   "values": [
     "#minecraft:needs_iron_tool",
-    "techmod:example_block"
+    "techmod:example_block",
+    "techmod:example_be"
   ]
 }

@@ -4,6 +4,7 @@ import com.buckydev.techmod.TechMod;
 import com.buckydev.techmod.blocks.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class ModBlockBlockStateProvider extends BlockStateProvider {
@@ -19,5 +20,7 @@ public class ModBlockBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
 
         simpleBlock(ModBlocks.EXAMPLE_BLOCK.get());
+
+        simpleBlock(ModBlocks.EXAMPLE_BE.get(), new ModelFile.UncheckedModelFile(modLoc("block/example_be")));
     }
 }
