@@ -18,7 +18,9 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         // It expects a string as the first argument for some reason
         withExistingParent(ModBlocks.EXAMPLE_BLOCK.asItem().toString(), modLoc("block/example_block"));
-        withExistingParent(ModBlocks.EXAMPLE_BE.asItem().toString(), modLoc("block/example_be"));
+        withExistingParent(
+                ModBlocks.EXAMPLE_BE.asItem().toString(),
+                modLoc("block/example_be")); // FIXME: renders the block item wrong
         basicItem(ModItems.EXAMPLE_FOOD.get());
         basicItem(ModItems.EXAMPLE_ITEM.get());
     }

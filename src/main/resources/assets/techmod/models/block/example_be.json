@@ -2,10 +2,10 @@
   "credit": "Made with Blockbench",
   "texture_size": [32, 32],
   "textures": {
-    "0": "techmod:block/example_be/port",
+    "0": "techmod:block/example_be/ports",
     "1": "techmod:block/example_be/core",
     "2": "techmod:block/example_be/shell",
-    "particle": "techmod:block/example_be/ports"
+    "particle": "techmod:block/example_be/shell"
   },
   "elements": [
     {
@@ -101,21 +101,6 @@
     }
   ],
   "display": {
-    "thirdperson_righthand": {
-      "scale": [0.25, 0.25, 0.25]
-    },
-    "thirdperson_lefthand": {
-      "scale": [0.25, 0.25, 0.25]
-    },
-    "firstperson_righthand": {
-      "scale": [0.25, 0.25, 0.25]
-    },
-    "firstperson_lefthand": {
-      "scale": [0.25, 0.25, 0.25]
-    },
-    "ground": {
-      "scale": [0.25, 0.25, 0.25]
-    },
     "head": {
       "scale": [1.1, 1.1, 1.1]
     },

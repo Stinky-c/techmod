@@ -2,6 +2,7 @@
 	"itemGroup.techmod": "Tech Mod",
 	"item.techmod.example_item": "Example item",
 	"item.techmod.example_food": "Example food",
+	"jade.techmod.block.example_block": "tooltip here",
 	"block.techmod.example_block": "Example block",
-	"jade.techmod.block.example_block": "tooltip here"
+	"block.techmod.example_be": "Example Block Entity"
 }

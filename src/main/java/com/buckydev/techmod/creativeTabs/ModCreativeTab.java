@@ -12,6 +12,5 @@ public class ModCreativeTab {
             () -> ModItems.EXAMPLE_FOOD.get().getDefaultInstance(),
             builder -> builder.displayItems((displayParameters, output) -> {
                 DeferredCreativeTabs.addToDisplay(ModItems.ITEMS, output);
-                //                DeferredCreativeTabs.addToDisplay();
             }));
 }

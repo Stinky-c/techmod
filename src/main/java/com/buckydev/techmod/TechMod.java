@@ -1,8 +1,11 @@
 package com.buckydev.techmod;
 
+import com.buckydev.techmod.blocks.ModBlockEntities;
 import com.buckydev.techmod.blocks.ModBlocks;
 import com.buckydev.techmod.creativeTabs.ModCreativeTab;
+import com.buckydev.techmod.fluids.ModFluids;
 import com.buckydev.techmod.items.ModItems;
+import com.buckydev.techmod.menu.ModMenus;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,21 +25,23 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
-/**
- * TODO: find a way to submit items in a way to register to creative mode tabs & register using datagen for textures/blockstates
+/*
+TODO: python script or block bench plugin to render output of a bbmodel file & VoxelShape
  */
 @Mod(TechMod.MODID)
 public class TechMod {
     public static final String MODID = "techmod";
 
-    protected static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public TechMod(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::addCreative);
+        //        modEventBus.addListener(this::commonSetup);
 
-        ModBlocks.submitEventBus(modEventBus);
         ModItems.submitEventBus(modEventBus);
+        ModBlocks.submitEventBus(modEventBus);
+        ModBlockEntities.submitEventBus(modEventBus);
+        ModFluids.submitEventBus(modEventBus);
+        ModMenus.submitEventBus(modEventBus);
         ModCreativeTab.CREATIVE_TAB.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
@@ -52,21 +57,9 @@ public class TechMod {
             LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
         }
 
-        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
+        LOGGER.info("{}", Config.magicNumberIntroduction + Config.magicNumber);
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
-    }
-
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ModBlocks.EXAMPLE_BLOCK);
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.EXAMPLE_ITEM);
-            event.accept(ModItems.EXAMPLE_FOOD);
-            event.accept(ModItems.EXAMPLE_FOOD2);
-        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
