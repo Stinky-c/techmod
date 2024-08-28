@@ -4,6 +4,7 @@ import com.buckydev.techmod.TechMod;
 import com.buckydev.techmod.datagen.loot.ModBlocksLootProvider;
 import com.buckydev.techmod.datagen.model.ModBlockBlockStateProvider;
 import com.buckydev.techmod.datagen.model.ModItemModelProvider;
+import com.buckydev.techmod.datagen.recipe.ModRecipeProvider;
 import com.buckydev.techmod.datagen.tags.ModBlocksTagProvider;
 import java.util.List;
 import java.util.Set;
@@ -14,12 +15,13 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableProvider.SubProviderEntry;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = TechMod.MODID)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = TechMod.MODID, value = Dist.CLIENT)
 public class ModDatagenHandler {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent dataEvent) {
@@ -34,6 +36,7 @@ public class ModDatagenHandler {
         generator.addProvider(dataEvent.includeClient(), new ModItemModelProvider(output, fileHelper));
 
         generator.addProvider(dataEvent.includeServer(), new ModBlocksTagProvider(output, lookupProvider, fileHelper));
+        generator.addProvider(dataEvent.includeServer(), new ModRecipeProvider(output, lookupProvider));
         generator.addProvider(
                 dataEvent.includeServer(),
                 new LootTableProvider(

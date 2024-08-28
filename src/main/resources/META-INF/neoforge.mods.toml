@@ -1,14 +1,14 @@
 modLoader = "javafml"
 loaderVersion = "${loader_version_range}"
 license = "${mod_license}"
-issueTrackerURL = "https://github.com/Stinky-c/techmod/issues"
+issueTrackerURL = "${mod_page}/issues"
 
 
 [[mods]]
 modId = "${mod_id}"
 version = "${mod_version}"
 displayName = "${mod_name}"
-displayURL = "https://github.com/Stinky-c/techmod/"
+displayURL = "${mod_page}"
 authors = "${mod_authors}"
 # A URL to query for updates for this mod. See the JSON update specification https://docs.neoforge.net/docs/misc/updatechecker/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional

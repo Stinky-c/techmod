@@ -9,19 +9,19 @@ import com.buckydev.techmod.menu.ModMenus;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
@@ -35,7 +35,6 @@ public class TechMod {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public TechMod(IEventBus modEventBus, ModContainer modContainer) {
-        //        modEventBus.addListener(this::commonSetup);
 
         ModItems.submitEventBus(modEventBus);
         ModBlocks.submitEventBus(modEventBus);
@@ -46,7 +45,6 @@ public class TechMod {
 
         NeoForge.EVENT_BUS.register(this);
 
-        TechMod.LOGGER.debug("config::specReg");
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
@@ -71,7 +69,7 @@ public class TechMod {
 
     // You can use EventBusSubscriber to automatically register all static methods in the class
     // annotated with @SubscribeEvent
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, bus = Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
@@ -81,5 +79,9 @@ public class TechMod {
             LOGGER.info(
                     "MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
+    }
+
+    public static ResourceLocation createRL(String path) {
+        return ResourceLocation.fromNamespaceAndPath(TechMod.MODID, path);
     }
 }

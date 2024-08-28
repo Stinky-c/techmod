@@ -5,7 +5,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ModCreativeTab {
-    public static final DeferredCreativeTabs CREATIVE_TAB = new DeferredCreativeTabs(ModItems::addToExistingTabs);
+    public static final DeferredCreativeTabs CREATIVE_TAB = new DeferredCreativeTabs();
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MOD_ITEMS_TAB = CREATIVE_TAB.registerMain(
             "itemGroup.techmod",

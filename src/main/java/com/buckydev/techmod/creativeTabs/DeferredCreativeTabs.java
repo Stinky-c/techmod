@@ -23,21 +23,17 @@ public class DeferredCreativeTabs extends DeferredRegister<CreativeModeTab> {
     // Copied straight from mekansim with modifications, I <3 Mek
     // https://github.com/mekanism/Mekanism/blob/572d8c57f841b4e951d7b31f4a290b4306ee4d29/src/main/java/mekanism/common/registration/impl/CreativeTabDeferredRegister.java#L1
 
-    private final Consumer<BuildCreativeModeTabContentsEvent> addToExistingTabs;
-
     public DeferredCreativeTabs() {
         this(event -> {});
     }
 
     public DeferredCreativeTabs(Consumer<BuildCreativeModeTabContentsEvent> addToExistingTabs) {
         super(Registries.CREATIVE_MODE_TAB, TechMod.MODID);
-        this.addToExistingTabs = addToExistingTabs;
     }
 
     @Override
     public void register(@NotNull IEventBus bus) {
-        super.register(bus);
-        bus.addListener(addToExistingTabs);
+        super.register(bus); // TODO: clean this maybe
     }
 
     public DeferredHolder<CreativeModeTab, CreativeModeTab> registerMain(

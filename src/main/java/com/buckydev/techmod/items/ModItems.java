@@ -8,7 +8,6 @@ import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tiers;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -46,8 +45,6 @@ public class ModItems {
     private static <T extends Item> DeferredItem<T> registerItem(String name, Supplier<T> itemSupplier) {
         return ITEMS.register(name, itemSupplier);
     }
-
-    public static void addToExistingTabs(BuildCreativeModeTabContentsEvent event) {}
 
     public static void submitEventBus(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "techmod",
+  "key": {
+    "v": {
+      "tag": "c:rods/wooden"
+    },
+    "x": {
+      "tag": "c:ingots/iron"
+    },
+    "z": {
+      "tag": "c:gems/diamond"
+    }
+  },
+  "pattern": [
+    "zxz",
+    "xzx",
+    "vvv"
+  ],
+  "result": {
+    "count": 1,
+    "id": "techmod:example_be"
+  }
+}

@@ -4,5 +4,6 @@
 	"item.techmod.example_food": "Example food",
 	"jade.techmod.block.example_block": "tooltip here",
 	"block.techmod.example_block": "Example block",
-	"block.techmod.example_be": "Example Block Entity"
+	"block.techmod.example_be": "Example Block Entity",
+	"menu.techmod.example_be.title": "Example Block Entity"
 }
