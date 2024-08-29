@@ -21,6 +21,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent(
                 ModBlocks.EXAMPLE_BE.asItem().toString(),
                 modLoc("block/example_be")); // FIXME: renders the block item wrong
+
+        withExistingParent(ModBlocks.SEC_MACHINE.asItem().toString(), modLoc("block/secondmachine"));
+
         basicItem(ModItems.EXAMPLE_FOOD.get());
         basicItem(ModItems.EXAMPLE_ITEM.get());
     }

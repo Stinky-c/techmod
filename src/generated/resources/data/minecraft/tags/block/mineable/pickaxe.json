@@ -2,6 +2,7 @@
   "values": [
     "#minecraft:needs_iron_tool",
     "techmod:example_block",
-    "techmod:example_be"
+    "techmod:example_be",
+    "techmod:secondmachine"
   ]
 }

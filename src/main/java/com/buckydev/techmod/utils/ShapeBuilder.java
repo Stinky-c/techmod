@@ -31,6 +31,10 @@ public class ShapeBuilder {
         return this;
     }
 
+    public ShapeBuilder joinOR(VoxelShape shape2) {
+        return this.join(shape2, BooleanOp.OR);
+    }
+
     public VoxelShape getVoxelShape() {
         return containerShape;
     }

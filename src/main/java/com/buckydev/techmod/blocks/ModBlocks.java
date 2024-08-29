@@ -2,6 +2,7 @@ package com.buckydev.techmod.blocks;
 
 import com.buckydev.techmod.TechMod;
 import com.buckydev.techmod.blocks.blockEntity.example.ExampleBlockEntity;
+import com.buckydev.techmod.blocks.blockEntity.secMachine.SecMachine;
 import com.buckydev.techmod.items.ModItems;
 import java.util.function.Supplier;
 import net.minecraft.world.item.BlockItem;
@@ -23,6 +24,9 @@ public class ModBlocks {
 
     public static final DeferredBlock<ExampleBlockEntity> EXAMPLE_BE = registerBlock(
             "example_be", () -> new ExampleBlockEntity(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
+
+    public static final DeferredBlock<SecMachine> SEC_MACHINE = registerBlock(
+            "secondmachine", () -> new SecMachine(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
 
     // Methods
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> blockSupplier) {

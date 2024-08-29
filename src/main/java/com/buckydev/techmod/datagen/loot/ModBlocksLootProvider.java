@@ -26,5 +26,6 @@ public class ModBlocksLootProvider extends BlockLootSubProvider {
         // Adds blocks here
         dropSelf(ModBlocks.EXAMPLE_BLOCK.get());
         dropSelf(ModBlocks.EXAMPLE_BE.get());
+        dropSelf(ModBlocks.SEC_MACHINE.get());
     }
 }

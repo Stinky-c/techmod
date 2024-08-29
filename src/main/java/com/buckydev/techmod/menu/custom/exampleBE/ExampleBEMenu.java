@@ -30,7 +30,6 @@ public class ExampleBEMenu extends AbstractContainerMenu {
         this.inventory = inventory;
 
         // TODO: dynamic values how?
-        //        this.addSlot(new Slot(inventory, 0, 8, 142));
         this.addPlayerHotbar(inventory, 8, 142, 18);
         this.addPlayerInventory(inventory, 8, 84, 18, 18);
         this.addSlot(new SlotItemHandler(itemHandler, 0, 80, 11));

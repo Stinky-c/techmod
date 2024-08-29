@@ -23,6 +23,6 @@ public class ModBlocksTagProvider extends BlockTagsProvider {
         // Adds block tags here
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(BlockTags.NEEDS_IRON_TOOL)
-                .add(ModBlocks.EXAMPLE_BLOCK.get(), ModBlocks.EXAMPLE_BE.get());
+                .add(ModBlocks.EXAMPLE_BLOCK.get(), ModBlocks.EXAMPLE_BE.get(), ModBlocks.SEC_MACHINE.get());
     }
 }

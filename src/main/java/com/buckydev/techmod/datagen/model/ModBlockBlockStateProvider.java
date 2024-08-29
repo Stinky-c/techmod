@@ -22,5 +22,6 @@ public class ModBlockBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.EXAMPLE_BLOCK.get());
 
         simpleBlock(ModBlocks.EXAMPLE_BE.get(), new ModelFile.UncheckedModelFile(modLoc("block/example_be")));
+        simpleBlock(ModBlocks.SEC_MACHINE.get(), new ModelFile.UncheckedModelFile(modLoc("block/secondmachine")));
     }
 }
