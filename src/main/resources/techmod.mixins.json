@@ -1,14 +1,12 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "com.buckydev.techmod.mixin",
-	"compatibilityLevel": "JAVA_8",
-	"refmap": "techmod.refmap.json",
-	"mixins": [
-	],
-	"client": [
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+  "client": [],
+  "compatibilityLevel": "JAVA_8",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8",
+  "mixins": [],
+  "package": "com.buckydev.techmod.mixin",
+  "refmap": "techmod.refmap.json",
+  "required": true
 }

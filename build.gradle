@@ -56,6 +56,22 @@ spotless {
         toggleOffOn("@formatter:off", "@formatter:on")
         palantirJavaFormat("2.50.0")
     }
+    json {
+
+        target rootProject.fileTree("src",{
+            include "main/**/lang/*.json"
+        })
+
+        gson().indentWithSpaces(2).sortByKeys()
+    }
+    format "jsonMisc", {
+        target rootProject.fileTree("src",{
+            include "main/**/*.json"
+            exclude "main/**/lang/*.json"
+        })
+      indentWithSpaces(2)
+        endWithNewline()
+    }
 }
 
 neoForge {
