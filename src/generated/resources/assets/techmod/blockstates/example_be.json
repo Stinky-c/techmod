@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "techmod:block/example_be",
+      "y": 90
+    },
+    "facing=north": {
       "model": "techmod:block/example_be"
+    },
+    "facing=south": {
+      "model": "techmod:block/example_be",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "techmod:block/example_be",
+      "y": 270
     }
   }
 }

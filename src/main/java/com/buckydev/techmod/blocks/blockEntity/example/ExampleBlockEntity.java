@@ -2,9 +2,11 @@ package com.buckydev.techmod.blocks.blockEntity.example;
 
 import com.buckydev.techmod.TechMod;
 import com.buckydev.techmod.menu.custom.exampleBE.ExampleBEMenu;
-import com.buckydev.techmod.utils.ShapeBuilder;
+import com.buckydev.techmod.utils.VoxelShapeUtils;
 import com.mojang.serialization.MapCodec;
+import java.util.Map;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -12,14 +14,18 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -28,23 +34,44 @@ import org.jetbrains.annotations.Nullable;
 // entity Block; the block subclass
 // TODO: make generic
 public class ExampleBlockEntity extends BaseEntityBlock {
-    private static final VoxelShape SHAPE = ShapeBuilder.empty()
-            .join(Shapes.box(0, 0, 0, 1, 0.25, 1), BooleanOp.OR)
-            .join(Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR)
-            .join(Shapes.box(0.8125, 0.25, 0.3125, 0.9375, 0.75, 0.6875), BooleanOp.OR)
-            .join(Shapes.box(0.0625, 0.25, 0.3125, 0.1875, 0.75, 0.6875), BooleanOp.OR)
-            .join(Shapes.box(0.3125, 0.25, 0.0625, 0.6875, 0.75, 0.1875), BooleanOp.OR)
-            .join(Shapes.box(0.3125, 0.25, 0.8125, 0.6875, 0.75, 0.9375), BooleanOp.OR)
-            .join(Shapes.box(0.125, 0.25, 0.125, 0.875, 0.75, 0.875), BooleanOp.OR)
-            .getVoxelShape();
+    private static final VoxelShape SHAPE = VoxelShapeUtils.combine(
+            Shapes.box(0, 0, 0, 1, 0.25, 1),
+            Shapes.box(0, 0.75, 0, 1, 1, 1),
+            Shapes.box(0.8125, 0.25, 0.3125, 0.9375, 0.75, 0.6875),
+            Shapes.box(0.0625, 0.25, 0.3125, 0.1875, 0.75, 0.6875),
+            Shapes.box(0.3125, 0.25, 0.0625, 0.6875, 0.75, 0.1875),
+            Shapes.box(0.3125, 0.25, 0.8125, 0.6875, 0.75, 0.9375),
+            Shapes.box(0.125, 0.25, 0.125, 0.875, 0.75, 0.875));
+    private static final Map<Direction, VoxelShape> SHAPE_MAP = VoxelShapeUtils.horizontalMap(SHAPE);
+
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public ExampleBlockEntity(Properties properties) {
         super(properties);
+        registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
+    }
+
+    // Directional states
+
+    @Override
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+        builder.add(FACING);
+    }
+
+    /**
+     * @see net.minecraft.world.level.block.EndPortalFrameBlock#getStateForPlacement
+     */
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        return getStateDefinition()
+                .any()
+                .setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        var direction = state.getValue(FACING);
+        return SHAPE_MAP.getOrDefault(direction, SHAPE);
     }
 
     @Override

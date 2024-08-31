@@ -4,10 +4,8 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+@Deprecated
 public class ShapeBuilder {
-    /**
-     * TODO: adding extra methods
-     * */
     private VoxelShape containerShape;
 
     public ShapeBuilder(VoxelShape shape) {

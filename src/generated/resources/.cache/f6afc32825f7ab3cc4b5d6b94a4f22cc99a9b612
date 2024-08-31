@@ -1,5 +1,7 @@
-// 1.21	2024-08-27T20:43:17.8044615	Block States: techmod
-092bab1956d107cd596dc22e10dd11951fb7d11e assets/techmod/blockstates/example_be.json
+// 1.21	2024-08-31T11:37:16.5792347	Block States: techmod
+66250f45820f00965ccd71a513a78e5af03fa838 assets/techmod/blockstates/example_be.json
 274ac8d860d069cea01cc5400ae3642a5e750115 assets/techmod/blockstates/example_block.json
-6f7e9df1aad77149ce84478813382f6ba835e05e assets/techmod/blockstates/secondmachine.json
+1be4196230978219601c6b11256094f89feffbed assets/techmod/blockstates/secondmachine.json
 23d21d02384474729a99383ae6473f1dd98a580f assets/techmod/models/block/example_block.json
+18aa1dd319792d9e99249ac27b95f96e81ed34ac assets/techmod/models/item/example_be.json
+5cf47028f0cd7c16327e12bd87f09a6fdeb6872b assets/techmod/models/item/secondmachine.json

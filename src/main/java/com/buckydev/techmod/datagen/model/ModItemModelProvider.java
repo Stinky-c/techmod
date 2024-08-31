@@ -19,8 +19,6 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
 
         basicBlockItem(ModBlocks.EXAMPLE_BLOCK.asItem(), modLoc("block/example_block"));
-        basicBlockItem(ModBlocks.EXAMPLE_BE.asItem(), modLoc("block/example_be"));
-        basicBlockItem(ModBlocks.SEC_MACHINE.asItem(), modLoc("block/secondmachine"));
 
         basicItem(ModItems.EXAMPLE_FOOD.get());
         basicItem(ModItems.EXAMPLE_ITEM.get());
