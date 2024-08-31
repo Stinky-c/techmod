@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:gems/diamond"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "techmod:secondmachine"
+  },
+  "neoforge:conditions": {
+    "type": "neoforge:mod_loaded",
+    "modid": "examplemod"
+  }
+}

@@ -9,18 +9,19 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 
 public class ModRecipeProvider extends RecipeProvider {
-    // Get the parameters from GatherDataEvent.
     public ModRecipeProvider(PackOutput output, CompletableFuture<Provider> lookupProvider) {
         super(output, lookupProvider);
     }
 
     @Override
     protected void buildRecipes(RecipeOutput output) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.EXAMPLE_BE.asItem(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.EXAMPLE_BE.asItem(), 1)
                 .pattern("zxz")
                 .pattern("xzx")
                 .pattern("vvv")
@@ -30,5 +31,10 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_air", has(Items.AIR)) // Always unlocked?
                 .group(TechMod.MODID)
                 .save(output);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModBlocks.SEC_MACHINE.asItem(), 1)
+                .requires(Tags.Items.GEMS_DIAMOND)
+                .unlockedBy("has_air", has(Items.AIR))
+                .save(output.withConditions(new ModLoadedCondition("jei")));
     }
 }
