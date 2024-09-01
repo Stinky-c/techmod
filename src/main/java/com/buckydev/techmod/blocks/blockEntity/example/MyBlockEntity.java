@@ -1,25 +1,32 @@
 package com.buckydev.techmod.blocks.blockEntity.example;
 
 import com.buckydev.techmod.blocks.ModBlockEntities;
+import com.buckydev.techmod.menu.custom.exampleBE.ExampleBEMenu;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.Nullable;
 
 // TODO: can this be moved into a class in the {BaseEntityBlock} subclass?
 // TODO: the capability system is completely revamped from forge 1.20.X so old forge guides no longer work
 //      see mcjty: tutorial wiki
 // block entity; the data holder
-public class MyBlockEntity extends BlockEntity {
+public class MyBlockEntity extends BlockEntity implements MenuProvider {
     public static final int SLOT_SIZE = 2;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final Lazy<IItemHandler> lazyItemHandler = Lazy.of(() -> itemHandler);
@@ -101,5 +108,16 @@ public class MyBlockEntity extends BlockEntity {
 
     public IItemHandler getLazyItemHandler() {
         return lazyItemHandler.get();
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("menu.techmod.example_be.title");
+    }
+
+    @Override
+    public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        var access = ContainerLevelAccess.create(getLevel(), getBlockPos());
+        return new ExampleBEMenu(containerId, playerInventory, access, getLazyItemHandler());
     }
 }
