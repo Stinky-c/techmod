@@ -1,4 +1,4 @@
-package com.buckydev.techmod.blocks.blockEntity.abc.block;
+package com.buckydev.techmod.blocks.abc.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;

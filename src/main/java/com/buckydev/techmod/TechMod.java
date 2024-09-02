@@ -36,10 +36,10 @@ public class TechMod {
 
     public TechMod(IEventBus modEventBus, ModContainer modContainer) {
 
-        ModItems.submitEventBus(modEventBus);
         ModBlocks.submitEventBus(modEventBus);
-        ModBlockEntities.submitEventBus(modEventBus);
+        ModItems.submitEventBus(modEventBus);
         ModFluids.submitEventBus(modEventBus);
+        ModBlockEntities.submitEventBus(modEventBus);
         ModMenus.submitEventBus(modEventBus);
         ModCreativeTab.CREATIVE_TAB.register(modEventBus);
 

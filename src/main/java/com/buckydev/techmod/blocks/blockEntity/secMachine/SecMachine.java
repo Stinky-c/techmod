@@ -1,6 +1,6 @@
 package com.buckydev.techmod.blocks.blockEntity.secMachine;
 
-import com.buckydev.techmod.blocks.blockEntity.abc.block.AbstractModHorizontalBlock;
+import com.buckydev.techmod.blocks.abc.block.AbstractModHorizontalBlock;
 import com.buckydev.techmod.utils.VoxelShapeUtils;
 import java.util.Map;
 import net.minecraft.core.BlockPos;

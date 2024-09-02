@@ -1,11 +1,13 @@
 package com.buckydev.techmod.blocks.blockEntity.example;
 
-import com.buckydev.techmod.blocks.blockEntity.abc.baseEntity.AbstractModHorizontalBaseEntityBlock;
+import com.buckydev.techmod.blocks.abc.baseEntity.AbstractModHorizontalBaseEntityBlock;
 import com.buckydev.techmod.utils.VoxelShapeUtils;
 import com.mojang.serialization.MapCodec;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -13,11 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 // entity Block; the block subclass
 // TODO: make generic
-public class ExampleBlockEntity extends AbstractModHorizontalBaseEntityBlock {
+public class ExampleBlockEntity<BE extends BlockEntity> extends AbstractModHorizontalBaseEntityBlock<BE> {
     private static final VoxelShape SHAPE = VoxelShapeUtils.combine(
             Shapes.box(0, 0, 0, 1, 0.25, 1),
             Shapes.box(0, 0.75, 0, 1, 1, 1),
@@ -39,12 +40,10 @@ public class ExampleBlockEntity extends AbstractModHorizontalBaseEntityBlock {
     }
 
     @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new MyBlockEntity(pos, state);
-    }
-
-    @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return null;
     }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {}
 }
