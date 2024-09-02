@@ -6,6 +6,7 @@ import com.buckydev.techmod.creativeTabs.ModCreativeTab;
 import com.buckydev.techmod.fluids.ModFluids;
 import com.buckydev.techmod.items.ModItems;
 import com.buckydev.techmod.menu.ModMenus;
+import com.buckydev.techmod.recipes.ModRecipes;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -42,6 +43,8 @@ public class TechMod {
         ModBlockEntities.submitEventBus(modEventBus);
         ModMenus.submitEventBus(modEventBus);
         ModCreativeTab.CREATIVE_TAB.register(modEventBus);
+        ModRecipes.submitEventbus(modEventBus);
+
 
         NeoForge.EVENT_BUS.register(this);
 

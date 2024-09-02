@@ -1,0 +1,10 @@
+{
+  "type": "techmod:simple_recipe",
+  "ingredient": {
+    "item": "minecraft:apple"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:diamond"
+  }
+}

@@ -1,4 +1,4 @@
-// 1.21	2024-08-27T20:43:17.8054605	Loot Tables
+// 1.21.1	2024-09-02T14:55:29.377939	Loot Tables
 af1041adc654360d4b289b1c4ca64493812356ed data/techmod/loot_table/blocks/example_be.json
 10f0c59632f20898e2a59e09fe55bf9c63938922 data/techmod/loot_table/blocks/example_block.json
 39038d33663acc7f9329cdf12fdb486ae37b94ef data/techmod/loot_table/blocks/secondmachine.json

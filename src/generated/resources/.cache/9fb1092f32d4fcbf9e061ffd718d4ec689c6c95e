@@ -1,5 +1,9 @@
-// 1.21	2024-08-30T23:19:22.9410924	Recipes
+// 1.21.1	2024-09-02T15:02:27.4689645	Recipes
+97bd9a15ecb1375c2aea98b33d812f5d1052d42c data/minecraft/advancement/recipes/diamond.json
+d234c2835b311fa0e93d85f6c1181657b643d052 data/minecraft/recipe/diamond.json
+7b1cc8aaff82aae5042e3cdbbe4592eee87184d2 data/techmod/advancement/recipes/apple.json
 7ebc2e46165d4b370bee3609008abaef729b8933 data/techmod/advancement/recipes/misc/example_be.json
 f3a00ff0a0d2451017026bf9006f8210b13c59ed data/techmod/advancement/recipes/misc/secondmachine.json
+6df972e733c1121e5336f7808b8a9c53de11460a data/techmod/recipe/apple.json
 ddc79f40208fd6adb2daa1848b0caae2cb6e17ee data/techmod/recipe/example_be.json
 c91479902a6794523037f5910b8adf3a0b4f000e data/techmod/recipe/secondmachine.json

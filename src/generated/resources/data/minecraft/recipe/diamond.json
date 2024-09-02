@@ -1,0 +1,13 @@
+{
+  "type": "techmod:right_click_block",
+  "ingredient": {
+    "item": "minecraft:apple"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:diamond"
+  },
+  "state": {
+    "Name": "minecraft:dirt"
+  }
+}
