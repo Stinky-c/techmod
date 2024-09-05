@@ -1,4 +1,4 @@
-package com.buckydev.techmod.blocks.interfaces;
+package com.buckydev.techmod.blocks.abc.interfaces;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

@@ -1,6 +1,7 @@
 package com.buckydev.techmod.blocks.blockEntity.example;
 
-import com.buckydev.techmod.blocks.interfaces.IBlockEntityServerTickable;
+import com.buckydev.techmod.blocks.abc.blockEntity.ModBlockEntity;
+import com.buckydev.techmod.blocks.abc.interfaces.IBlockEntityServerTickable;
 import com.buckydev.techmod.menu.custom.exampleBE.ExampleBEMenu;
 import com.buckydev.techmod.recipes.ModRecipes;
 import com.buckydev.techmod.recipes.simple.SimpleRecipe;
@@ -19,10 +20,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.Lazy;
@@ -35,22 +34,16 @@ import org.jetbrains.annotations.Nullable;
 // TODO: the capability system is completely revamped from forge 1.20.X so old forge guides no longer work
 //      see mcjty: tutorial wiki
 // block entity; the data holder
-public class MyBlockEntity extends BlockEntity implements MenuProvider, IBlockEntityServerTickable {
+public class MyBlockEntity extends ModBlockEntity<MyBlockEntity>
+        implements MenuProvider, IBlockEntityServerTickable {
     public static final int SLOT_SIZE = 2;
     public static final int INPUT_SLOT = 0;
     public static final int OUTPUT_SLOT = 1;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final Lazy<IItemHandler> lazyItemHandler = Lazy.of(() -> itemHandler);
 
-    public static final String INVENTORY_KEY = "Inventory";
-    public static final int INVENTORY_KEY_TYPE = CompoundTag.TAG_COMPOUND;
-
     public MyBlockEntity(BlockEntityType<MyBlockEntity> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
-    }
-
-    public RecipeManager getRecipeManager() {
-        return getLevel().getRecipeManager();
     }
 
     @Override
@@ -60,8 +53,8 @@ public class MyBlockEntity extends BlockEntity implements MenuProvider, IBlockEn
     }
 
     private void loadAdditionalHelper(CompoundTag tag, Provider registries) {
-        if (tag.contains(INVENTORY_KEY, INVENTORY_KEY_TYPE)) {
-            itemHandler.deserializeNBT(registries, tag.getCompound(INVENTORY_KEY));
+        if (tag.contains(TAG_INVENTORY_KEY, TAG_INVENTORY_TYPE)) {
+            itemHandler.deserializeNBT(registries, tag.getCompound(TAG_INVENTORY_KEY));
         }
     }
 
@@ -72,7 +65,7 @@ public class MyBlockEntity extends BlockEntity implements MenuProvider, IBlockEn
     }
 
     private void saveAdditionalHelper(CompoundTag tag, Provider registries) {
-        tag.put(INVENTORY_KEY, itemHandler.serializeNBT(registries));
+        tag.put(TAG_INVENTORY_KEY, itemHandler.serializeNBT(registries));
     }
 
     // Extra networking related code from McJty - unsure if I really need it

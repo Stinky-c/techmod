@@ -6,8 +6,6 @@ import com.mojang.serialization.MapCodec;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -43,7 +41,4 @@ public class ExampleBlockEntity<BE extends BlockEntity> extends AbstractModHoriz
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return null;
     }
-
-    @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {}
 }
