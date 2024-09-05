@@ -1,6 +1,7 @@
 package com.buckydev.techmod.items;
 
 import com.buckydev.techmod.TechMod;
+import com.buckydev.techmod.items.custom.ExampleItem;
 import java.util.function.Supplier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -36,7 +37,8 @@ public class ModItems {
                                     .saturationModifier(4)
                                     .build())));
 
-    public static final DeferredItem<Item> EXAMPLE_ITEM = registerSimpleItem("example_item", new Item.Properties());
+    public static final DeferredItem<Item> EXAMPLE_ITEM =
+            registerItem("example_item", () -> new ExampleItem(new Item.Properties()));
 
     private static DeferredItem<Item> registerSimpleItem(String name, Item.Properties itemProperties) {
         return ITEMS.registerSimpleItem(name, itemProperties);

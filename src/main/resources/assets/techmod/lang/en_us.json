@@ -5,5 +5,7 @@
   "item.techmod.example_item": "Example item",
   "itemGroup.techmod": "Tech Mod",
   "jade.techmod.block.example_block": "tooltip here",
-  "menu.techmod.example_be.title": "Example Block Entity"
+  "menu.techmod.example_be.title": "Example Block Entity",
+  "tooltip.techmod.expand_details": "Hold to %1$s to expand details",
+  "tooltip.techmod.exmaple_item": "Hello World!"
 }

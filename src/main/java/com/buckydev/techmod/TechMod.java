@@ -44,7 +44,7 @@ public class TechMod {
         ModMenus.submitEventBus(modEventBus);
         ModCreativeTab.CREATIVE_TAB.register(modEventBus);
         ModRecipes.submitEventbus(modEventBus);
-
+        ModKeys.submitEventbus(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 
