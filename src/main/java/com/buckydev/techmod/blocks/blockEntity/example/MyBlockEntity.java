@@ -2,13 +2,17 @@ package com.buckydev.techmod.blocks.blockEntity.example;
 
 import com.buckydev.techmod.blocks.abc.blockEntity.ModBlockEntity;
 import com.buckydev.techmod.blocks.abc.interfaces.IBlockEntityServerTickable;
+import com.buckydev.techmod.datacomponents.ModDataComponents;
 import com.buckydev.techmod.menu.custom.exampleBE.ExampleBEMenu;
 import com.buckydev.techmod.recipes.ModRecipes;
 import com.buckydev.techmod.recipes.simple.SimpleRecipe;
 import com.buckydev.techmod.recipes.simple.SimpleRecipeInput;
+import com.buckydev.techmod.utils.handlers.ModItemStackHandler;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentMap.Builder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -19,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -26,7 +31,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,12 +38,11 @@ import org.jetbrains.annotations.Nullable;
 // TODO: the capability system is completely revamped from forge 1.20.X so old forge guides no longer work
 //      see mcjty: tutorial wiki
 // block entity; the data holder
-public class MyBlockEntity extends ModBlockEntity<MyBlockEntity>
-        implements MenuProvider, IBlockEntityServerTickable {
+public class MyBlockEntity extends ModBlockEntity<MyBlockEntity> implements MenuProvider, IBlockEntityServerTickable {
     public static final int SLOT_SIZE = 2;
     public static final int INPUT_SLOT = 0;
     public static final int OUTPUT_SLOT = 1;
-    private final ItemStackHandler itemHandler = createItemHandler();
+    private final ModItemStackHandler itemHandler = createItemHandler();
     private final Lazy<IItemHandler> lazyItemHandler = Lazy.of(() -> itemHandler);
 
     public MyBlockEntity(BlockEntityType<MyBlockEntity> type, BlockPos pos, BlockState blockState) {
@@ -103,8 +106,8 @@ public class MyBlockEntity extends ModBlockEntity<MyBlockEntity>
     // Copied from McJty
     // https://www.mcjty.eu/docs/1.20.4_neo/ep2#the-block-entity-class
     @NotNull
-    private ItemStackHandler createItemHandler() {
-        return new ItemStackHandler(SLOT_SIZE) {
+    private ModItemStackHandler createItemHandler() {
+        return new ModItemStackHandler(SLOT_SIZE) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -158,5 +161,31 @@ public class MyBlockEntity extends ModBlockEntity<MyBlockEntity>
         if (!result.isEmpty()) {
             this.itemHandler.setStackInSlot(OUTPUT_SLOT, result);
         }
+    }
+
+    // https://discord.com/channels/313125603924639766/1249305774987939900/1278200813214502933
+    // apply; item -> BE
+    // collect; BE -> item
+    // TODO: abstract this
+    @Override
+    protected void applyImplicitComponents(DataComponentInput componentInput) {
+        super.applyImplicitComponents(componentInput);
+        var v = componentInput.getOrDefault(ModDataComponents.CONTAINER, ItemContainerContents.EMPTY);
+        for (int i = 0; i < v.getSlots(); i++) {
+            itemHandler.setStackInSlot(i, v.getStackInSlot(i));
+        }
+    }
+
+    @Override
+    protected void collectImplicitComponents(Builder components) {
+        super.collectImplicitComponents(components);
+        if (!itemHandler.isEmpty()) {
+            components.set(ModDataComponents.CONTAINER, itemHandler.containerize());
+        }
+    }
+
+    @Override
+    public DataComponentMap components() {
+        return super.components();
     }
 }
