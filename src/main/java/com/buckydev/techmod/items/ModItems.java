@@ -41,7 +41,7 @@ public class ModItems {
             registerItem("example_item", () -> new ExampleItem(new Item.Properties()));
 
     private static DeferredItem<Item> registerSimpleItem(String name, Item.Properties itemProperties) {
-        return ITEMS.registerSimpleItem(name, itemProperties);
+        return ITEMS.registerItem(name, SimpleModItem::new, itemProperties);
     }
 
     private static <T extends Item> DeferredItem<T> registerItem(String name, Supplier<T> itemSupplier) {
@@ -50,5 +50,12 @@ public class ModItems {
 
     public static void submitEventBus(IEventBus eventBus) {
         ITEMS.register(eventBus);
+    }
+
+    static class SimpleModItem extends BaseModItem {
+
+        public SimpleModItem(Properties properties) {
+            super(properties);
+        }
     }
 }

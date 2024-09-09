@@ -41,27 +41,34 @@ public class ModBlockEntities {
         // Heavily inspired by AE2
         // https://github.com/AppliedEnergistics/Applied-Energistics-2/blob/92e8deec2417040a46274f3789e97abff485585e/src/main/java/appeng/core/definitions/AEBlockEntities.java#L217
 
+        // Arrays.stream(blockEntityClass.getInterfaces()).filter(aClass ->
+        // aClass.isAssignableFrom(<GenericCapInterface>));
+
         return BLOCK_ENTITY_TYPE.register(name, () -> {
+            // These enable the block entity to be constructed and use the {BlockEntityType<?>} as the first constructor argument
             AtomicReference<BlockEntityType<T>> typeRef = new AtomicReference<>();
             BlockEntityType.BlockEntitySupplier<T> supplier = (pos, state) -> factory.create(typeRef.get(), pos, state);
 
+            // Not completely sure what this is doing, it may be building the class
             var blocks =
                     Arrays.stream(validBlocks).map(DeferredModBlock::get).toArray(AbstractModBaseEntityBlock[]::new);
 
             BlockEntityType<T> b = BlockEntityType.Builder.of(supplier, blocks).build(null);
             typeRef.set(b);
 
+            // Check for server ticker
             BlockEntityTicker<T> serverTicker = null;
             if (IBlockEntityServerTickable.class.isAssignableFrom(blockEntityClass)) {
                 serverTicker = (Llevel, lPos, lState, lBlockEntity) ->
                         ((IBlockEntityServerTickable) lBlockEntity).serverTick(Llevel, lPos, lState);
             }
+            // Check for client ticker
             BlockEntityTicker<T> clientTicker = null;
             if (IBlockEntityClientTickable.class.isAssignableFrom(blockEntityClass)) {
                 clientTicker = (lLevel, lPos, lState, lBlockEntity) ->
                         ((IBlockEntityClientTickable) lBlockEntity).clientTick(lLevel, lPos, lState);
             }
-
+            // Assign the client & server tickers
             for (var block : blocks) {
                 block.updateBlockEntity(blockEntityClass, b, clientTicker, serverTicker);
             }
@@ -76,6 +83,9 @@ public class ModBlockEntities {
     }
 
     public static void registerBlockEntityCapabilities(RegisterCapabilitiesEvent event) {
+        // Collect all impl caps, and register them
+        // A supplier called during runtime to get a cap. Likely during a query
+        // https://docs.neoforged.net/docs/datastorage/capabilities#querying-capabilities
         event.registerBlockEntity(
                 ItemHandler.BLOCK, ModBlockEntities.EX_BE.get(), (object, context) -> object.getLazyItemHandler());
     }

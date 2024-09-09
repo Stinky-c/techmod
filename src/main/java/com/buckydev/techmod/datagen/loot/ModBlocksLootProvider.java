@@ -23,6 +23,7 @@ public class ModBlocksLootProvider extends BlockLootSubProvider {
 
     @Override
     protected @NotNull Iterable<Block> getKnownBlocks() {
+        // Throws an error if a single block is missing a loot table
         return ModBlocks.BLOCKS.getEntries().stream()
                 .map(e -> (Block) e.value())
                 .toList();
@@ -36,6 +37,7 @@ public class ModBlocksLootProvider extends BlockLootSubProvider {
     }
 
     protected void dropWithPackagedContents(Block block) {
+        // TODO: make including the components iterable
         var v = LootTable.lootTable()
                 .withPool(applyExplosionCondition(
                         block,

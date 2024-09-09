@@ -7,7 +7,7 @@ import com.buckydev.techmod.menu.custom.exampleBE.ExampleBEMenu;
 import com.buckydev.techmod.recipes.ModRecipes;
 import com.buckydev.techmod.recipes.simple.SimpleRecipe;
 import com.buckydev.techmod.recipes.simple.SimpleRecipeInput;
-import com.buckydev.techmod.utils.handlers.ModItemStackHandler;
+import com.buckydev.techmod.utils.handlers.item.ModItemStackHandler;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
@@ -37,6 +37,12 @@ import org.jetbrains.annotations.Nullable;
 // TODO: can this be moved into a class in the {BaseEntityBlock} subclass?
 // TODO: the capability system is completely revamped from forge 1.20.X so old forge guides no longer work
 //      see mcjty: tutorial wiki
+
+// Have separate input & output handlers, then expose a {CombinedInvWrapper} for caps
+// https://www.mcjty.eu/docs/1.20.4_neo/ep3#the-block-entity
+
+// implicit components, at construct time collect all interfaces, filter for is `isAssignableFrom` by
+// a generic interface, collect all into a list held during runtime, apply and collect at needed times
 // block entity; the data holder
 public class MyBlockEntity extends ModBlockEntity<MyBlockEntity> implements MenuProvider, IBlockEntityServerTickable {
     public static final int SLOT_SIZE = 2;
@@ -144,7 +150,7 @@ public class MyBlockEntity extends ModBlockEntity<MyBlockEntity> implements Menu
 
     public Optional<RecipeHolder<SimpleRecipe>> getRecipe(ItemStack inputStack) {
         var b = new SimpleRecipeInput(inputStack);
-        return getRecipeManager().getRecipeFor(ModRecipes.SIMPLE_RECIPE.get(), b, getLevel());
+        return recipeManager.getRecipeFor(ModRecipes.SIMPLE_RECIPE.get(), b, getLevel());
     }
 
     public boolean hasRecipe() {
@@ -187,5 +193,10 @@ public class MyBlockEntity extends ModBlockEntity<MyBlockEntity> implements Menu
     @Override
     public DataComponentMap components() {
         return super.components();
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
     }
 }

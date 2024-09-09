@@ -1,4 +1,4 @@
-package com.buckydev.techmod.utils.handlers;
+package com.buckydev.techmod.utils.handlers.item;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;

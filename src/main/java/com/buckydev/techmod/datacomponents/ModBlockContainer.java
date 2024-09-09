@@ -8,7 +8,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 
-
 // see {ItemContainerContents} for extra
 public record ModBlockContainer(NonNullList<ItemStack> stacks) {
 

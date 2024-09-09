@@ -2,7 +2,7 @@ package com.buckydev.techmod;
 
 import com.buckydev.techmod.blocks.ModBlockEntities;
 import com.buckydev.techmod.blocks.ModBlocks;
-import com.buckydev.techmod.creativeTabs.ModCreativeTab;
+import com.buckydev.techmod.creativeTabs.ModCreativeTabs;
 import com.buckydev.techmod.datacomponents.ModDataComponents;
 import com.buckydev.techmod.fluids.ModFluids;
 import com.buckydev.techmod.items.ModItems;
@@ -46,7 +46,7 @@ public class TechMod {
         ModFluids.submitEventBus(modEventBus);
         ModBlockEntities.submitEventBus(modEventBus);
         ModMenus.submitEventBus(modEventBus);
-        ModCreativeTab.CREATIVE_TAB.register(modEventBus);
+        ModCreativeTabs.CREATIVE_TAB.register(modEventBus);
         ModRecipes.submitEventbus(modEventBus);
         ModKeys.submitEventbus(modEventBus);
         ModDataComponents.submitEventBus(modEventBus);

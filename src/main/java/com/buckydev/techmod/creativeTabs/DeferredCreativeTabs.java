@@ -12,11 +12,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.jetbrains.annotations.NotNull;
 
 public class DeferredCreativeTabs extends DeferredRegister<CreativeModeTab> {
 
@@ -24,16 +22,7 @@ public class DeferredCreativeTabs extends DeferredRegister<CreativeModeTab> {
     // https://github.com/mekanism/Mekanism/blob/572d8c57f841b4e951d7b31f4a290b4306ee4d29/src/main/java/mekanism/common/registration/impl/CreativeTabDeferredRegister.java#L1
 
     public DeferredCreativeTabs() {
-        this(event -> {});
-    }
-
-    public DeferredCreativeTabs(Consumer<BuildCreativeModeTabContentsEvent> addToExistingTabs) {
         super(Registries.CREATIVE_MODE_TAB, TechMod.MODID);
-    }
-
-    @Override
-    public void register(@NotNull IEventBus bus) {
-        super.register(bus); // TODO: clean this maybe
     }
 
     public DeferredHolder<CreativeModeTab, CreativeModeTab> registerMain(
