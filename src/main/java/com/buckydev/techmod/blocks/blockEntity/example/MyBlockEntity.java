@@ -3,7 +3,7 @@ package com.buckydev.techmod.blocks.blockEntity.example;
 import com.buckydev.techmod.blocks.abc.blockEntity.ModBlockEntity;
 import com.buckydev.techmod.blocks.abc.interfaces.IBlockEntityServerTickable;
 import com.buckydev.techmod.datacomponents.ModDataComponents;
-import com.buckydev.techmod.menu.custom.exampleBE.ExampleBEMenu;
+import com.buckydev.techmod.menu.ModMenus;
 import com.buckydev.techmod.recipes.ModRecipes;
 import com.buckydev.techmod.recipes.simple.SimpleRecipe;
 import com.buckydev.techmod.recipes.simple.SimpleRecipeInput;
@@ -134,7 +134,9 @@ public class MyBlockEntity extends ModBlockEntity<MyBlockEntity> implements Menu
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         var access = ContainerLevelAccess.create(getLevel(), getBlockPos());
-        return new ExampleBEMenu(containerId, playerInventory, access, getLazyItemHandler());
+        // need to pass in **THIS** item handler
+        return ModMenus.MY_MENU.get().create(containerId, playerInventory);
+        //        return new ExampleBEMenu(containerId, playerInventory, access, getLazyItemHandler());
     }
 
     @Override
