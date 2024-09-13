@@ -1,7 +1,8 @@
 {
   "values": [
     "#minecraft:planks",
+    "#minecraft:coal_ores",
     "techmod:secondmachine",
-    "minecraft:stone"
+    "techmod:example_be"
   ]
 }

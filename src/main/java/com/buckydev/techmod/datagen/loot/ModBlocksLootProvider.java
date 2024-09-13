@@ -47,7 +47,9 @@ public class ModBlocksLootProvider extends BlockLootSubProvider {
                                         .apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
                                         .apply(CopyComponentsFunction.copyComponents(
                                                         CopyComponentsFunction.Source.BLOCK_ENTITY)
-                                                .include(ModDataComponents.CONTAINER.get())))));
+                                                .include(ModDataComponents.INPUT_CONTAINER.get())
+                                                .include(ModDataComponents.OUTPUT_CONTAINER.get())
+                                                .include(ModDataComponents.MANA_AMOUNT.get())))));
         this.add(block, v);
     }
 }

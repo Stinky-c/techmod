@@ -1,12 +1,13 @@
 package com.buckydev.techmod.handlers.events;
 
+import com.buckydev.techmod.capabilities.ModCapabilities;
+import com.buckydev.techmod.capabilities.interfaces.mana.IManaTank.ManaTankAction;
 import com.buckydev.techmod.tags.ModTags.ModBlockTags;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
 
@@ -24,8 +25,11 @@ public class WindCharge {
         List<BlockPos> filtered = blocks.stream()
                 .filter(blockPos -> level.getBlockState(blockPos).is(ModBlockTags.WIND_CHARGEABLE))
                 .toList();
+        // cache speed up
         for (var block : filtered) {
-            level.setBlock(block, Blocks.DIRT.defaultBlockState(), 2);
+            var cap = level.getCapability(ModCapabilities.MANA_HANDLER, block);
+            if (cap == null) continue;
+            cap.fill(1_000, ManaTankAction.EXECUTE);
         }
     }
 

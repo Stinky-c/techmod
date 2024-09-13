@@ -19,7 +19,9 @@
             {
               "function": "minecraft:copy_components",
               "include": [
-                "techmod:container"
+                "techmod:input_container",
+                "techmod:output_container",
+                "techmod:mana_amount"
               ],
               "source": "block_entity"
             }

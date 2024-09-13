@@ -1,3 +1,3 @@
-// 1.21.1	2024-09-10T15:34:39.6363978	Tags for minecraft:block mod id techmod
+// 1.21.1	2024-09-12T22:45:30.9599922	Tags for minecraft:block mod id techmod
 ec5c571f7fd813df10b899a8e6388cc15bec50e9 data/minecraft/tags/block/mineable/pickaxe.json
-7e484202cb757ec56e87564be5a678327d0c2769 data/techmod/tags/block/wind_chargeable.json
+ef9b37a4bcdd8c3889ac130d7442083bc41061e2 data/techmod/tags/block/wind_chargeable.json

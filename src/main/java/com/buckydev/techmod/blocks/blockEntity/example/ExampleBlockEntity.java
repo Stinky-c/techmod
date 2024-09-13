@@ -17,7 +17,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 // entity Block; the block subclass
-// TODO: make generic
 public class ExampleBlockEntity<BE extends BlockEntity> extends AbstractModHorizontalBaseEntityBlock<BE> {
     private static final VoxelShape SHAPE = VoxelShapeUtils.combine(
             Shapes.box(0, 0, 0, 1, 0.25, 1),
@@ -44,7 +43,8 @@ public class ExampleBlockEntity<BE extends BlockEntity> extends AbstractModHoriz
         return null;
     }
 
-    // https://discord.com/channels/313125603924639766/1249305774987939900/1269763799741632613
+    // TODO: see note
+    //  https://discord.com/channels/313125603924639766/1249305774987939900/1269763799741632613
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         return super.playerWillDestroy(level, pos, state, player);

@@ -7,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
@@ -29,6 +28,6 @@ public class ModBlocksTagProvider extends BlockTagsProvider {
 
         tag(ModBlockTags.WIND_CHARGEABLE)
                 .addTags(BlockTags.PLANKS, BlockTags.COAL_ORES)
-                .add(ModBlocks.SEC_MACHINE.get(), Blocks.STONE);
+                .add(ModBlocks.SEC_MACHINE.get(), ModBlocks.EXAMPLE_BE.get());
     }
 }

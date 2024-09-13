@@ -7,6 +7,7 @@ import com.buckydev.techmod.blocks.abc.interfaces.IBlockEntityClientTickable;
 import com.buckydev.techmod.blocks.abc.interfaces.IBlockEntityServerTickable;
 import com.buckydev.techmod.blocks.blockEntity.example.MyBlockEntity;
 import com.buckydev.techmod.blocks.blockEntity.secMachine.SecMachineBlockEntity;
+import com.buckydev.techmod.capabilities.ModCapabilities;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
@@ -92,7 +93,11 @@ public class ModBlockEntities {
         // A supplier called during runtime to get a cap. Likely during a query
         // https://docs.neoforged.net/docs/datastorage/capabilities#querying-capabilities
         event.registerBlockEntity(
-                ItemHandler.BLOCK, ModBlockEntities.EX_BE.get(), (object, context) -> object.getLazyItemHandler());
+                ItemHandler.BLOCK, ModBlockEntities.EX_BE.get(), (object, context) -> object.lazyCombinedHandler.get());
+        event.registerBlockEntity(
+                ModCapabilities.MANA_HANDLER,
+                ModBlockEntities.EX_BE.get(),
+                (object, context) -> object.lazyManaTank.get());
     }
 
     @FunctionalInterface

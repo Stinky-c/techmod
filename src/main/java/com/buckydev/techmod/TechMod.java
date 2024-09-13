@@ -29,8 +29,9 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
 /*
-TODO: python script or block bench plugin to render output of a bbmodel file & VoxelShape
-Wind charge reactions? charge a block from being hit by a varying range
+TODO: python script or block bench plugin to render output of a bbmodel file & VoxelShape.
+    Wind charge reactions? charge a block from being hit by a varying range.
+    obj model loader to reduce exports
  */
 @Mod(TechMod.MODID)
 public class TechMod {
