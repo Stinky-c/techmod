@@ -4,7 +4,8 @@ import com.buckydev.techmod.TechMod;
 import com.buckydev.techmod.blocks.abc.DeferredModBlock;
 import com.buckydev.techmod.blocks.blockEntity.example.ExampleBlockEntity;
 import com.buckydev.techmod.blocks.blockEntity.example.MyBlockEntity;
-import com.buckydev.techmod.blocks.blockEntity.secMachine.SecMachine;
+import com.buckydev.techmod.blocks.blockEntity.secMachine.SecMachineBlock;
+import com.buckydev.techmod.blocks.blockEntity.secMachine.SecMachineBlockEntity;
 import com.buckydev.techmod.items.ModItems;
 import java.util.function.Supplier;
 import net.minecraft.world.item.BlockItem;
@@ -28,10 +29,10 @@ public class ModBlocks {
     public static final DeferredModBlock<ExampleBlockEntity<MyBlockEntity>> EXAMPLE_BE = registerBlock(
             "example_be", () -> new ExampleBlockEntity<>(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
 
-    public static final DeferredModBlock<SecMachine> SEC_MACHINE = registerBlock(
-            "secondmachine", () -> new SecMachine(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
+    // Currently broken
+    public static final DeferredModBlock<SecMachineBlock<SecMachineBlockEntity>> SEC_MACHINE = registerBlock(
+            "secondmachine", () -> new SecMachineBlock<>(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
 
-    // Methods
     private static <T extends Block> DeferredModBlock<T> registerBlock(String name, Supplier<T> blockSupplier) {
         DeferredBlock<T> deferredBlock = BLOCKS.register(name, blockSupplier);
         DeferredItem<BlockItem> deferredItem = registerBlockItem(name, deferredBlock);

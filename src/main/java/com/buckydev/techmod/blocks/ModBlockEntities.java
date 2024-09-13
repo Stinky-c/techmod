@@ -6,6 +6,7 @@ import com.buckydev.techmod.blocks.abc.baseEntity.AbstractModBaseEntityBlock;
 import com.buckydev.techmod.blocks.abc.interfaces.IBlockEntityClientTickable;
 import com.buckydev.techmod.blocks.abc.interfaces.IBlockEntityServerTickable;
 import com.buckydev.techmod.blocks.blockEntity.example.MyBlockEntity;
+import com.buckydev.techmod.blocks.blockEntity.secMachine.SecMachineBlockEntity;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
@@ -31,6 +32,9 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<MyBlockEntity>> EX_BE =
             register("ex_be", MyBlockEntity.class, MyBlockEntity::new, ModBlocks.EXAMPLE_BE);
 
+    public static final Supplier<BlockEntityType<SecMachineBlockEntity>> SEC_BE =
+            register("sec_be", SecMachineBlockEntity.class, SecMachineBlockEntity::new, ModBlocks.SEC_MACHINE);
+
     @SuppressWarnings("unchecked")
     @SafeVarargs
     public static <T extends BlockEntity> Supplier<BlockEntityType<T>> register(
@@ -45,7 +49,8 @@ public class ModBlockEntities {
         // aClass.isAssignableFrom(<GenericCapInterface>));
 
         return BLOCK_ENTITY_TYPE.register(name, () -> {
-            // These enable the block entity to be constructed and use the {BlockEntityType<?>} as the first constructor argument
+            // These enable the block entity to be constructed and use the {BlockEntityType<?>} as the first constructor
+            // argument
             AtomicReference<BlockEntityType<T>> typeRef = new AtomicReference<>();
             BlockEntityType.BlockEntitySupplier<T> supplier = (pos, state) -> factory.create(typeRef.get(), pos, state);
 

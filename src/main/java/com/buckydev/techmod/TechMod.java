@@ -5,6 +5,7 @@ import com.buckydev.techmod.blocks.ModBlocks;
 import com.buckydev.techmod.creativeTabs.ModCreativeTabs;
 import com.buckydev.techmod.datacomponents.ModDataComponents;
 import com.buckydev.techmod.fluids.ModFluids;
+import com.buckydev.techmod.handlers.events.WindCharge;
 import com.buckydev.techmod.items.ModItems;
 import com.buckydev.techmod.menu.ModMenus;
 import com.buckydev.techmod.recipes.ModRecipes;
@@ -12,7 +13,6 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -25,7 +25,6 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
@@ -52,6 +51,7 @@ public class TechMod {
         ModDataComponents.submitEventBus(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(WindCharge.class);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -73,17 +73,6 @@ public class TechMod {
     public void onServerStarting(ServerStartingEvent event) {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
-    }
-
-    public static void explosionEvent(ExplosionEvent.Detonate event) {
-        // cannot cancel this event
-        event.getAffectedBlocks(); // returns a list of block positions; might get slow for larger explosions because
-        // players will do that
-        event.getExplosion().getBlockInteraction().compareTo(Explosion.BlockInteraction.TRIGGER_BLOCK);
-        event.getExplosion().canTriggerBlocks(); // extra checks, includes mob griefing rules
-        event.getExplosion().radius(); // strength isnt really involved; radius is only applied
-        // {WindCharge#EXPLOSION_DAMAGE_CALCULATOR} references a block tag, `blocks_wind_charge_explosions`
-        // Check if source is a breeze or the charge
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class
