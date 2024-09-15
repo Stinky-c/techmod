@@ -2,8 +2,11 @@ package com.buckydev.techmod.capabilities.impl.mana;
 
 import com.buckydev.techmod.capabilities.interfaces.mana.IManaTank;
 import com.buckydev.techmod.capabilities.interfaces.mana.IManaTankModifiable;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.nbt.CompoundTag;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
-public class ManaTank implements IManaTank, IManaTankModifiable {
+public class ManaTank implements IManaTank, IManaTankModifiable, INBTSerializable<CompoundTag> {
 
     private final Runnable contentsChange;
 
@@ -60,5 +63,17 @@ public class ManaTank implements IManaTank, IManaTankModifiable {
     @Override
     public void onContentsChange() {
         this.contentsChange.run();
+    }
+
+    @Override
+    public CompoundTag serializeNBT(Provider provider) {
+        var tag = new CompoundTag();
+        tag.putInt("ManaAmount", this.amount);
+        return tag;
+    }
+
+    @Override
+    public void deserializeNBT(Provider provider, CompoundTag nbt) {
+        this.setAmount(nbt.getInt("ManaAmount"));
     }
 }

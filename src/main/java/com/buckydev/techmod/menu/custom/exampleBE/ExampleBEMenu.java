@@ -16,6 +16,13 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 // Menu's are both client and serverside(fact check me) and define locations of slots
 public class ExampleBEMenu extends AbstractContainerMenu {
 
+    private final int INPUT_SLOT = 37;
+    private final int OUTPUT_SLOT = 38;
+    private final int INV_START = 9;
+    private final int INV_END = 36;
+    private final int HOTBAR_START = 0;
+    private final int HOTBAR_END = 8;
+
     private final ContainerLevelAccess levelAccess;
     private final Inventory inventory;
 
@@ -30,21 +37,22 @@ public class ExampleBEMenu extends AbstractContainerMenu {
         this.inventory = inventory;
 
         // TODO: dynamic values who/how?
-        this.addPlayerHotbar(inventory, 8, 142, 18);
-        this.addPlayerInventory(inventory, 8, 84, 18, 18);
-        this.addSlot(new SlotItemHandler(itemHandler, 0, 80, 11));
-        this.addSlot(new SlotItemHandler(itemHandler, 1, 80, 59));
+        this.addPlayerHotbar(8, 142, 18); // slots: 0-8
+        this.addPlayerInventory(8, 84, 18, 18); // slots: 9 - 36
+        //        this.addSlotPad(); // bad idea most likely; can be misc data slots, like power or whatnot
+        this.addSlot(new SlotItemHandler(itemHandler, 0, 80, 11)); // input: 37
+        this.addSlot(new SlotItemHandler(itemHandler, 1, 80, 59)); // output: 38
     }
 
     // Copied from {AbstractFurnaceMenu}
-    private void addPlayerHotbar(Inventory inventory, int startX, int startY, int stepX) {
+    private void addPlayerHotbar(int startX, int startY, int stepX) {
         for (int k = 0; k < 9; k++) {
             this.addSlot(new Slot(inventory, k, startX + k * stepX, startY));
         }
     }
 
     // Copied from {AbstractFurnaceMenu}
-    private void addPlayerInventory(Inventory inventory, int startX, int startY, int stepX, int stepY) {
+    private void addPlayerInventory(int startX, int startY, int stepX, int stepY) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 this.addSlot(new Slot(inventory, j + i * 9 + 9, startX + j * stepX, startY + i * stepY));

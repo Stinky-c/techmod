@@ -4,9 +4,11 @@ import com.buckydev.techmod.blocks.abc.blockEntity.ModBlockEntity;
 import com.buckydev.techmod.blocks.abc.interfaces.IBlockEntityServerTickable;
 import com.buckydev.techmod.capabilities.impl.item.InputItemHandler;
 import com.buckydev.techmod.capabilities.impl.item.OutputItemHandler;
+import com.buckydev.techmod.capabilities.impl.item.WrappedInputItemHandler;
+import com.buckydev.techmod.capabilities.impl.item.WrappedOutputItemHandler;
+import com.buckydev.techmod.capabilities.impl.mana.ManaTank;
 import com.buckydev.techmod.capabilities.interfaces.mana.IManaTank;
 import com.buckydev.techmod.capabilities.interfaces.mana.IManaTank.ManaTankAction;
-import com.buckydev.techmod.capabilities.impl.mana.ManaTank;
 import com.buckydev.techmod.datacomponents.ModDataComponents;
 import com.buckydev.techmod.menu.custom.exampleBE.ExampleBEMenu;
 import com.buckydev.techmod.recipes.ModRecipes;
@@ -35,6 +37,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,20 +55,33 @@ import org.jetbrains.annotations.Nullable;
 // a generic interface, collect all into a list held during runtime, apply and collect at needed times
 // block entity; the data holder
 public class MyBlockEntity extends ModBlockEntity<MyBlockEntity> implements MenuProvider, IBlockEntityServerTickable {
-    public static final int INPUT_SLOT = 0;
-    public static final int OUTPUT_SLOT = 0;
+    private static final String TAG_MANA_KEY = "ManaAmount";
+    private static final int TAG_MANA_TYPE = CompoundTag.TAG_COMPOUND;
     public Runnable BBB = () -> {
         setChanged();
         level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
     };
     public Consumer<Integer> AAA = slot -> BBB.run();
 
+    // Private handlers
     private final OutputItemHandler outputItemHandler = new OutputItemHandler(1, AAA);
+    private final WrappedOutputItemHandler wrappedOutputItemHandler = new WrappedOutputItemHandler(outputItemHandler);
     private final InputItemHandler inputItemHandler = new InputItemHandler(1, AAA);
+    private final WrappedInputItemHandler wrappedInputItemHandler = new WrappedInputItemHandler(inputItemHandler);
     private final ManaTank manaTank = new ManaTank(32_000, BBB);
-    public final Lazy<IManaTank> lazyManaTank = Lazy.of(() -> manaTank);
-    public final Lazy<CombinedInvWrapper> lazyCombinedHandler =
+
+    // Public handlers
+    // Player inventory view
+    public final Lazy<IItemHandler> lazyCombinedHandler =
             Lazy.of(() -> new CombinedInvWrapper(inputItemHandler, outputItemHandler));
+    // Wrapped handlers for automation
+    public final Lazy<IItemHandler> lazyInputHandler = Lazy.of(() -> new WrappedInputItemHandler(inputItemHandler));
+    public final Lazy<IItemHandler> lazyOutputHandler = Lazy.of(() -> new WrappedOutputItemHandler(outputItemHandler));
+    // automation handler view
+    public final Lazy<IItemHandler> lazyIOHandler =
+            Lazy.of(() -> new CombinedInvWrapper(wrappedInputItemHandler, wrappedOutputItemHandler));
+    // misc
+    public final Lazy<IManaTank> lazyManaTank = Lazy.of(() -> manaTank);
 
     public MyBlockEntity(BlockEntityType<MyBlockEntity> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
@@ -84,6 +100,9 @@ public class MyBlockEntity extends ModBlockEntity<MyBlockEntity> implements Menu
         if (tag.contains(TAG_OUTPUT_KEY, TAG_INVENTORY_TYPE)) {
             outputItemHandler.deserializeNBT(registries, tag.getCompound(TAG_OUTPUT_KEY));
         }
+        if (tag.contains(TAG_MANA_KEY, TAG_MANA_TYPE)) {
+            manaTank.deserializeNBT(registries, tag.getCompound(TAG_MANA_KEY));
+        }
     }
 
     @Override
@@ -95,6 +114,7 @@ public class MyBlockEntity extends ModBlockEntity<MyBlockEntity> implements Menu
     private void saveAdditionalHelper(CompoundTag tag, Provider registries) {
         tag.put(TAG_INPUT_KEY, inputItemHandler.serializeNBT(registries));
         tag.put(TAG_OUTPUT_KEY, outputItemHandler.serializeNBT(registries));
+        tag.put(TAG_MANA_KEY, manaTank.serializeNBT(registries));
     }
 
     // Extra networking related code from McJty - unsure if I really need it
@@ -158,7 +178,7 @@ public class MyBlockEntity extends ModBlockEntity<MyBlockEntity> implements Menu
     }
 
     public boolean hasRecipe() {
-        var inputSlot = this.inputItemHandler.getStackInSlot(INPUT_SLOT);
+        var inputSlot = this.inputItemHandler.getStackInSlot(0);
         if (inputSlot != ItemStack.EMPTY) {
             return getRecipe(inputSlot).isPresent();
         }

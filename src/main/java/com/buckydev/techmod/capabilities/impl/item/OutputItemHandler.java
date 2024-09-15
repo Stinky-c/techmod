@@ -1,6 +1,7 @@
 package com.buckydev.techmod.capabilities.impl.item;
 
 import java.util.function.Consumer;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * See {@link net.neoforged.neoforge.items.IItemHandler}
@@ -11,8 +12,8 @@ public class OutputItemHandler extends BaseItemStackHandler {
         super(size, contentsChangeHandler);
     }
 
-    //    @Override
-    //    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-    //        return stack;
-    //    }
+    @Override
+    public boolean isItemValid(int slot, ItemStack stack) {
+        return false;
+    }
 }

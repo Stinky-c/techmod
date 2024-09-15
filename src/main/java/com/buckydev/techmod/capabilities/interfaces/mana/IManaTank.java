@@ -1,10 +1,5 @@
 package com.buckydev.techmod.capabilities.interfaces.mana;
 
-/*
- * Copyright (c) Forge Development LLC and contributors
- * SPDX-License-Identifier: LGPL-2.1-only
- */
-
 import com.buckydev.techmod.capabilities.interfaces.IContentsChange;
 
 public interface IManaTank extends IContentsChange {

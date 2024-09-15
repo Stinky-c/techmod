@@ -2,11 +2,11 @@ package com.buckydev.techmod.recipes.builder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.annotation.Nullable;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 // This class is abstract because there is a lot of per-recipe-serializer logic.
 // It serves the purpose of showing the common part of all (vanilla) recipe builders.

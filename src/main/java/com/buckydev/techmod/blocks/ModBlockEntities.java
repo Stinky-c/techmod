@@ -93,7 +93,8 @@ public class ModBlockEntities {
         // A supplier called during runtime to get a cap. Likely during a query
         // https://docs.neoforged.net/docs/datastorage/capabilities#querying-capabilities
         event.registerBlockEntity(
-                ItemHandler.BLOCK, ModBlockEntities.EX_BE.get(), (object, context) -> object.lazyCombinedHandler.get());
+                ItemHandler.BLOCK, ModBlockEntities.EX_BE.get(), (object, context) -> object.lazyIOHandler.get());
+
         event.registerBlockEntity(
                 ModCapabilities.MANA_HANDLER,
                 ModBlockEntities.EX_BE.get(),
