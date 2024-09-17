@@ -5,7 +5,7 @@ import com.buckydev.techmod.blocks.ModBlocks;
 import com.buckydev.techmod.creativeTabs.ModCreativeTabs;
 import com.buckydev.techmod.datacomponents.ModDataComponents;
 import com.buckydev.techmod.fluids.ModFluids;
-import com.buckydev.techmod.handlers.events.WindCharge;
+import com.buckydev.techmod.handlers.events.WindChargeEvent;
 import com.buckydev.techmod.items.ModItems;
 import com.buckydev.techmod.menu.ModMenus;
 import com.buckydev.techmod.recipes.ModRecipes;
@@ -52,7 +52,7 @@ public class TechMod {
         ModDataComponents.submitEventBus(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
-        NeoForge.EVENT_BUS.register(WindCharge.class);
+        NeoForge.EVENT_BUS.register(new WindChargeEvent());
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
